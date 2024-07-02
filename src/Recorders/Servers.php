@@ -86,7 +86,7 @@ class Servers
                 'memory_used' => $memoryUsed,
                 'memory_total' => $memoryTotal,
                 'storage' => collect($this->config->get('pulse.recorders.'.self::class.'.directories')) // @phpstan-ignore argument.templateType, argument.templateType
-                    ->filter(fn (string $directory) => rescue(fn () => disk_total_space($directory), false, false) !== false)
+                    ->filter(fn (string $directory) => @disk_total_space($directory) !== false)
                     ->map(fn (string $directory) => [
                         'directory' => $directory,
                         'total' => $total = intval(round(disk_total_space($directory) / 1024 / 1024)), // MB
