@@ -64,6 +64,9 @@ it('can customise CPU and memory resolution', function () {
 });
 
 it('skips missing filesystems when recording events', function () {
+    Pulse::handleExceptionsUsing(function () {
+        //
+    });
     Config::set('pulse.recorders.'.Servers::class . '.directories', ['/', '/nonexistent']);
     Date::setTestNow(Date::now()->startOfMinute());
 
